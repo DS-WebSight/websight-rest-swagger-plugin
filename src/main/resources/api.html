@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>${title}</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui.css" >
+    <style>
+        html {
+            box-sizing: border-box;
+            overflow: -moz-scrollbars-vertical;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+        body {
+            margin:0;
+            background: #ffffff;
+        }
+        .topbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="swagger-ui"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui-bundle.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui-standalone-preset.js"> </script>
+<script>
+    window.onload = function() {
+        window.ui = SwaggerUIBundle({
+            dom_id: '#swagger-ui',
+            deepLinking: true,
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIStandalonePreset
+            ],
+            plugins: [
+                SwaggerUIBundle.plugins.DownloadUrl
+            ],
+            layout: "StandaloneLayout",
+            url: "./api.yaml",
+            onComplete: () => {
+                document.querySelectorAll('a[href$="api.yaml"]').values().next().value.innerText = "API Yaml";
+                document.getElementById('operations-tag-default').remove();
+                if (window.frameElement) {
+                    new ResizeObserver(_ =>
+                        {window.frameElement.height = document.body.getBoundingClientRect().bottom + 'px';}
+                    ).observe(window.frameElement.contentWindow.document.body);
+                }
+            }
+        });
+    };
+</script>
+</body>
+</html>
